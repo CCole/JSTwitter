@@ -17,9 +17,22 @@ class JSTwitter
     end
 
     def dm(target, message)
-    	puts "Trying to send #{target} this direct message:"
-    	puts message
-    	
+    	screen_names = @client.followers.collect {|follower| follower.screen_name}
+    	if screen_names.include?(target) 
+    	  puts "Trying to send #{target} this direct message:"
+    	  puts message
+    	  tweet("d #{target} #{message}")
+    	else
+    	  puts 'Error. You can only DM people who are following you.'
+        end 
+    end
+
+    def followers_list 
+    	screen_names = []
+    	@client.followers.users.each do 
+        screen_names << follower ["screen_name"]
+        end
+    
     end
 
     def run
