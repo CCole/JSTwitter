@@ -29,10 +29,17 @@ class JSTwitter
 
     def followers_list 
     	screen_names = []
-    	@client.followers.users.each do 
-        screen_names << follower ["screen_name"]
+    	@client.followers.each do |follower|
+    	screen_names << follower["screen_name"]
         end
+        return screen_names
     
+    end
+
+    def spam_my_followers(message)
+    	followers_list.each do |follower| 
+    		dm(follower,message)
+    	end
     end
 
     def run
@@ -48,6 +55,7 @@ class JSTwitter
 			when 'q' then puts "Goodbye!"
 			when 't' then tweet(parts[1..-1].join(" "))
 			when 'dm' then dm(parts[1], parts[2..-1].join(" "))
+			when 'spam' then spam_my_followers(parts[1..-1].join(" "))
 			else
 				puts "Sorry, I don't know how to #{command}"
 			end 
