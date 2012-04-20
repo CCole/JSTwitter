@@ -42,6 +42,16 @@ class JSTwitter
     	end
     end
 
+    def everyones_last_tweet
+    	friends = @client.friends
+    	friends.each do |friend|
+    		# find each friends last message
+    		# print each friend's screen_name
+    		# print each friend's last message
+    		puts ""  #Just print a blank line to sparate people
+    	end
+    end
+
     def run
 		puts "Welcome to the JSL Twitter Client"
 		command = " "
@@ -56,6 +66,7 @@ class JSTwitter
 			when 't' then tweet(parts[1..-1].join(" "))
 			when 'dm' then dm(parts[1], parts[2..-1].join(" "))
 			when 'spam' then spam_my_followers(parts[1..-1].join(" "))
+			when 'elt'  then everyones_last_tweet
 			else
 				puts "Sorry, I don't know how to #{command}"
 			end 
